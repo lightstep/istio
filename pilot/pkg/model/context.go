@@ -227,6 +227,8 @@ func DefaultProxyConfig() meshconfig.ProxyConfig {
 		CustomConfigFile:       "",
 		Concurrency:            0,
 		StatNameLength:         189,
+		LightstepAddress: "",
+		LightstepAccessTokenFile: "",
 	}
 }
 
@@ -258,6 +260,7 @@ func ApplyMeshConfigDefaults(yaml string) (*meshconfig.MeshConfig, error) {
 		return nil, multierror.Prefix(err, "failed to convert to proto.")
 	}
 
+	log.Infoa("JSG incoming yaml: ", yaml)
 	// Reset the default ProxyConfig as jsonpb.UnmarshalString doesn't
 	// handled nested decode properly for our use case.
 	prevDefaultConfig := out.DefaultConfig
@@ -269,9 +272,11 @@ func ApplyMeshConfigDefaults(yaml string) (*meshconfig.MeshConfig, error) {
 	if prevDefaultConfig != nil {
 		origProxyConfigYAML, err := ToYAML(prevDefaultConfig)
 		if err != nil {
+			log.Infoa("JSG failed to re-encode default proxy config")
 			return nil, multierror.Prefix(err, "failed to re-encode default proxy config")
 		}
 		if err := ApplyYAML(origProxyConfigYAML, out.DefaultConfig); err != nil {
+			log.Infoa("JSG failed to convert to proto")
 			return nil, multierror.Prefix(err, "failed to convert to proto.")
 		}
 	}
@@ -279,6 +284,8 @@ func ApplyMeshConfigDefaults(yaml string) (*meshconfig.MeshConfig, error) {
 	if err := ValidateMeshConfig(&out); err != nil {
 		return nil, err
 	}
+
+	log.Infoa("JSG outgoing yaml: ", yaml)
 	return &out, nil
 }
 

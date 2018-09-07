@@ -60,6 +60,8 @@ var (
 	discoveryAddress         string
 	discoveryRefreshDelay    time.Duration
 	zipkinAddress            string
+	lightstepAddress            string
+	lightstepAccessTokenFile string
 	connectTimeout           time.Duration
 	statsdUDPAddress         string
 	proxyAdminPort           uint16
@@ -147,6 +149,8 @@ var (
 			proxyConfig.DiscoveryAddress = discoveryAddress
 			proxyConfig.DiscoveryRefreshDelay = types.DurationProto(discoveryRefreshDelay)
 			proxyConfig.ZipkinAddress = zipkinAddress
+			proxyConfig.LightstepAddress = lightstepAddress
+			proxyConfig.LightstepAccessTokenFile = lightstepAccessTokenFile
 			proxyConfig.ConnectTimeout = types.DurationProto(connectTimeout)
 			proxyConfig.StatsdUdpAddress = statsdUDPAddress
 			proxyConfig.ProxyAdminPort = int32(proxyAdminPort)
@@ -345,6 +349,10 @@ func init() {
 		"Address of the discovery service exposing xDS (e.g. istio-pilot:8080)")
 	proxyCmd.PersistentFlags().StringVar(&zipkinAddress, "zipkinAddress", values.ZipkinAddress,
 		"Address of the Zipkin service (e.g. zipkin:9411)")
+	proxyCmd.PersistentFlags().StringVar(&lightstepAddress, "lightstepAddress", values.LightstepAddress,
+		"Address of the Lightstep service ")
+	proxyCmd.PersistentFlags().StringVar(&lightstepAccessTokenFile, "lightstepAccessTokenFile", values.LightstepAccessTokenFile,
+		"Access Token for Lightstep service ")
 	proxyCmd.PersistentFlags().DurationVar(&connectTimeout, "connectTimeout",
 		timeDuration(values.ConnectTimeout),
 		"Connection timeout used by Envoy for supporting services")

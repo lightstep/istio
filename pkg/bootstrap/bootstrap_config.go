@@ -211,6 +211,25 @@ func WriteBootstrap(config *meshconfig.ProxyConfig, node string, epoch int, pilo
 		}
 		StoreHostPort(h, p, "zipkin", opts)
 	}
+	if config.LightstepAddress != "" {
+		h, p, err = GetHostPort("Lightstep", config.LightstepAddress)
+		if err != nil {
+			return "", err
+		}
+		StoreHostPort(h, p, "lightstep", opts)
+	}
+	if config.LightstepAccessTokenFile != "" {
+		lightstepAccessTokenPath := path.Join(config.ConfigPath, "lightstep_access_token")
+		lsConfigOut, err := os.Create(lightstepAccessTokenPath)
+		if err != nil {
+			return "", err
+		}
+		_, err = lsConfigOut.WriteString(config.LightstepAccessTokenFile)
+		if err != nil {
+			return "", err
+		}
+		opts["lightstepToken"] = lightstepAccessTokenPath
+	}
 
 	if config.StatsdUdpAddress != "" {
 		h, p, err = GetHostPort("statsd UDP", config.StatsdUdpAddress)
