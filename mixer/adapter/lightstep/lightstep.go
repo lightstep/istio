@@ -1,3 +1,7 @@
+// nolint:lll
+// Generates the LightStep adapter's resource yaml.
+//go:generate $GOPATH/src/istio.io/istio/bin/mixer_codegen.sh -a mixer/adapter/lightstep/config/config.proto -x "-s=false -n lightstep -t tracespan"
+
 package lightstep
 
 import (

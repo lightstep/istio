@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+// config for the LightStep Adapter
+package adapter.lightstep.config;
+
+import "gogoproto/gogo.proto";
+
+option go_package="config";
+
+// config for the LightStep Adapter
+message Params {
+    // Placeholder until we can think of something that we actually want
+    string placeholder = 1;
+}
