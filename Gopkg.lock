@@ -829,6 +829,20 @@
   revision = "b84e30acd515aadc4b783ad4ff83aff3299bdfe0"
 
 [[projects]]
+  digest = "1:2c7f923c1524e99bd530d849b0101879c757e508ccf661e9dca43efa9de49f49"
+  name = "github.com/lightstep/lightstep-tracer-go"
+  packages = [
+    ".",
+    "collectorpb",
+    "lightstep_thrift",
+    "lightsteppb",
+    "thrift_0_9_2/lib/go/thrift",
+  ]
+  pruneopts = "NUT"
+  revision = "ee5c8997bd8d23c5086ee174c8bc698c3edff871"
+  version = "v0.15.4"
+
+[[projects]]
   digest = "1:e361d686ef1e70b8bd268cfb3953fcc0d59b43d4e5b6ad9a80112b06bff6cb2b"
   name = "github.com/lyft/protoc-gen-validate"
   packages = ["validate"]
@@ -960,6 +974,14 @@
   pruneopts = "NUT"
   revision = "1949ddbfd147afd4d964a9f00b24eb291e0e7c38"
   version = "v1.0.2"
+
+[[projects]]
+  digest = "1:2f65b355ae21b1c02e7e4d313f962328253a7ba33362183a59100722b3b4b4c1"
+  name = "github.com/openzipkin/zipkin-go"
+  packages = ["model"]
+  pruneopts = "NUT"
+  revision = "d455a5674050831c1e187644faa4046d653433c2"
+  version = "v0.1.1"
 
 [[projects]]
   digest = "1:cce3a18fb0b96b5015cd8ca03a57d20a662679de03c4dc4b6ff5f17ea2050fa6"
@@ -2082,6 +2104,8 @@
     "github.com/hashicorp/vault/api",
     "github.com/howeyc/fsnotify",
     "github.com/istio/tools/protoc-gen-docs",
+    "github.com/lightstep/lightstep-tracer-go",
+    "github.com/lightstep/lightstep-tracer-go/collectorpb",
     "github.com/natefinch/lumberjack",
     "github.com/onsi/gomega",
     "github.com/onsi/gomega/gbytes",
@@ -2092,6 +2116,7 @@
     "github.com/opentracing/opentracing-go",
     "github.com/opentracing/opentracing-go/ext",
     "github.com/opentracing/opentracing-go/log",
+    "github.com/openzipkin/zipkin-go/model",
     "github.com/pborman/uuid",
     "github.com/pkg/errors",
     "github.com/pmezard/go-difflib/difflib",
