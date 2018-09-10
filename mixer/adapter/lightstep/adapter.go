@@ -14,7 +14,6 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/lightstep/lightstep-tracer-go/collectorpb"
 )
 
 type AdapterOptions struct {
@@ -26,7 +25,7 @@ type AdapterOptions struct {
 type Adapter struct {
 	listener net.Listener
 	server   *grpc.Server
-	client   collectorpb.CollectorServiceClient
+	client   *grpcSatelliteClient
 }
 
 var _ tracespan.HandleTraceSpanServiceServer = &Adapter{}
@@ -36,18 +35,7 @@ func (s *Adapter) HandleTraceSpan(
 	ctx context.Context,
 	request *tracespan.HandleTraceSpanRequest,
 ) (*v1beta1.ReportResult, error) {
-	satelliteRequest, err := convertRequest(request)
-	if err != nil {
-		return nil, fmt.Errorf("failed to send report: %v", err)
-	}
-	// TODO: do something with AdapterConfig and/or DedupId?
-	// TODO: do something with response?
-	_, err = s.client.Report(ctx, satelliteRequest)
-	if err != nil {
-		return nil, fmt.Errorf("failed to send report: %v", err)
-	}
-
-	return &v1beta1.ReportResult{}, nil
+	return s.client.HandleTraceSpan(ctx, request)
 }
 
 // NewLightStepAdapter creates a new GRPC adapter that listens at provided port.
@@ -69,7 +57,7 @@ func NewLightStepAdapter(opts AdapterOptions) (*Adapter, error) {
 
 	satelliteClient, err := newGRPCSatelliteClient(opts.Client)
 	if err != nil {
-		return nil, fmt.Errorf("unable to ")
+		return nil, err
 	}
 	adapter.client = satelliteClient
 	return adapter, nil

@@ -22,6 +22,12 @@ func main() {
 	accessToken := os.Args[3]
 	hostPort := os.Args[4]
 
+	fmt.Println(os.Args[1])
+	fmt.Println(os.Args[2])
+	fmt.Println(os.Args[3])
+	fmt.Println(os.Args[4])
+
+
 	s, err := lightstep.NewLightStepAdapter(
 		lightstep.AdapterOptions{
 			Server: lightstep.ServerOptions{

@@ -2,6 +2,8 @@ package lightstep
 
 import (
 	"fmt"
+	"istio.io/api/mixer/adapter/model/v1beta1"
+	"istio.io/istio/mixer/template/tracespan"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -32,7 +34,7 @@ type ClientOptions struct {
 func newGRPCSatelliteClient(options ClientOptions) (*grpcSatelliteClient, error) {
 	rec := &grpcSatelliteClient{options: options}
 
-	conn, err := grpc.Dial(options.HostPort)
+	conn, err := grpc.Dial(options.HostPort, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		return nil, fmt.Errorf("could not connect to satellite: %v", err)
 	}
@@ -40,7 +42,27 @@ func newGRPCSatelliteClient(options ClientOptions) (*grpcSatelliteClient, error)
 	return rec, nil
 }
 
-func (client *grpcSatelliteClient) Report(
+
+// HandleTraceSpan records TraceSpan entries
+func (c *grpcSatelliteClient) HandleTraceSpan(
+	ctx context.Context,
+	request *tracespan.HandleTraceSpanRequest,
+) (*v1beta1.ReportResult, error) {
+	satelliteRequest, err := convertRequest(request, c.options.AccessToken)
+	if err != nil {
+		return nil, fmt.Errorf("failed to send report: %v", err)
+	}
+	// TODO: do something with AdapterConfig and/or DedupId?
+	// TODO: do something with response?
+	_, err = c.Report(ctx, satelliteRequest)
+	if err != nil {
+		return nil, fmt.Errorf("failed to send report: %v", err)
+	}
+
+	return &v1beta1.ReportResult{}, nil
+}
+
+func (c *grpcSatelliteClient) Report(
 	ctx context.Context,
 	req *collectorpb.ReportRequest,
 	opts ...grpc.CallOption,
@@ -48,5 +70,5 @@ func (client *grpcSatelliteClient) Report(
 	if req == nil {
 		return nil, fmt.Errorf("reportRequest cannot be nil")
 	}
-	return client.grpcClient.Report(ctx, req)
+	return c.grpcClient.Report(ctx, req)
 }

@@ -21,6 +21,7 @@ import (
 
 func convertRequest(
 	request *tracespan.HandleTraceSpanRequest,
+	accessToken string,
 ) (*collectorpb.ReportRequest, error) {
 	if request == nil {
 		return nil, nil
@@ -33,6 +34,9 @@ func convertRequest(
 
 	return &collectorpb.ReportRequest{
 		Reporter: convertReporter(request.AdapterConfig),
+		Auth: &collectorpb.Auth{
+			AccessToken: accessToken,
+		},
 		Spans:    spans,
 	}, nil
 }
@@ -205,6 +209,10 @@ func convertTags(
 	parentSpanGUID string,
 	input map[string]*v1beta1.Value,
 ) ([]*collectorpb.KeyValue, error) {
+	if len(input) == 0 {
+		return nil, nil
+	}
+
 	if _, ok := input[lightstep.ComponentNameKey]; !ok {
 		input[lightstep.ComponentNameKey] = &v1beta1.Value{
 			Value: &v1beta1.Value_StringValue{

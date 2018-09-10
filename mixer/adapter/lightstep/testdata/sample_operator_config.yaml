@@ -1,0 +1,43 @@
+# handler for adapter lightstep
+apiVersion: "config.istio.io/v1alpha2"
+kind: handler
+metadata:
+  name: h1
+  namespace: istio-system
+spec:
+  adapter: lightstep
+  connection:
+    address: "[::]:38355" #replaces at runtime by the test
+  params:
+    placeholder: "unused"
+---
+
+# instance for template tracespan
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: i1tracespan
+  namespace: istio-system
+spec:
+  template: tracespan
+  params:
+    traceId: request.headers["x-b3-traceid"]
+    spanId: request.headers["x-b3-spanid"] | ""
+    parentSpanId: request.headers["x-b3-parentspanid"] | ""
+    spanName: request.path | "/"
+    startTime: request.time
+    endTime: response.time
+---
+
+# rule to dispatch to handler h1
+apiVersion: "config.istio.io/v1alpha2"
+kind: rule
+metadata:
+  name: r1
+  namespace: istio-system
+spec:
+  actions:
+  - handler: h1.istio-system
+    instances:
+    - i1tracespan
+---
