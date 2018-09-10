@@ -14,6 +14,7 @@ contexts:
   name: istio
 - context:
     cluster: minikube
+    namespace: default
     user: minikube
   name: minikube
 current-context: minikube

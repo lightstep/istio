@@ -89,7 +89,7 @@ data:
       # Zipkin trace collector
       zipkinAddress: zipkin.{{ .Release.Namespace }}:9411
       # Lightstep trace collector
-      lightstepAddress: collector-grpc.lightstep.com:443
+      lightstepAddress: collector-grpc.lightstep.com:8080
       lightstepAccessTokenFile: a9a061a7d1f5b11050ef23da2670a404
 
     {{- if .Values.global.proxy.envoyStatsd.enabled }}

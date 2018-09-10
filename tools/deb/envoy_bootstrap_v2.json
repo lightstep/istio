@@ -171,23 +171,11 @@
       {
         "name": "lightstep",
         "http2_protocol_options": {},
-        "tls_context": {
-          "common_tls_context": {
-            "validation_context": {
-            "trusted_ca": {
-              "filename": "/etc/certs/root-cert.pem"
-            },
-            "verify_subject_alt_name": [
-              "collector-grpc.lightstep.com"
-            ]
-          }
-        }
-      },
-      "type": "LOGICAL_DNS",
-      "connect_timeout": {
-        "seconds": 1
-      },
-      "lb_policy": "ROUND_ROBIN",
+        "type": "LOGICAL_DNS",
+        "connect_timeout": {
+          "seconds": 1
+        },
+        "lb_policy": "ROUND_ROBIN",
         "hosts": [
           {
             "socket_address": {{ .lightstep }}
