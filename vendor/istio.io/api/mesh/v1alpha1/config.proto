@@ -134,11 +134,11 @@ message ProxyConfig {
   // The mode used to redirect inbound traffic to Envoy.
   InboundInterceptionMode interception_mode = 18;
 
-  // Address of the LightStep service .
+  // Address of the LightStep service.
   string lightstep_address = 19;
 
-  // Path to the lightstep access token file.
-  string lightstep_access_token_file = 20;
+  // The LightStep access token.
+  string lightstep_access_token = 20;
 }
 
 // MeshConfig defines mesh-wide variables shared by all Envoy instances in the

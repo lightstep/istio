@@ -218,13 +218,13 @@ func WriteBootstrap(config *meshconfig.ProxyConfig, node string, epoch int, pilo
 		}
 		StoreHostPort(h, p, "lightstep", opts)
 	}
-	if config.LightstepAccessTokenFile != "" {
+	if config.LightstepAccessToken != "" {
 		lightstepAccessTokenPath := path.Join(config.ConfigPath, "lightstep_access_token")
 		lsConfigOut, err := os.Create(lightstepAccessTokenPath)
 		if err != nil {
 			return "", err
 		}
-		_, err = lsConfigOut.WriteString(config.LightstepAccessTokenFile)
+		_, err = lsConfigOut.WriteString(config.LightstepAccessToken)
 		if err != nil {
 			return "", err
 		}

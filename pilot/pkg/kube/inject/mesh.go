@@ -107,8 +107,8 @@ containers:
   - [[ .ProxyConfig.ZipkinAddress ]]
   - --lightstepAddress
   - [[ .ProxyConfig.LightstepAddress ]]
-  - --lightstepAccessTokenFile
-  - [[ .ProxyConfig.LightstepAccessTokenFile ]]
+  - --lightstepAccessToken
+  - [[ .ProxyConfig.LightstepAccessToken ]]
   - --connectTimeout
   - [[ formatDuration .ProxyConfig.ConnectTimeout ]]
   - --statsdUdpAddress

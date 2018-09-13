@@ -102,9 +102,9 @@ data:
         - --lightstepAddress
         - {{ "[[ .ProxyConfig.LightstepAddress ]]" }}
       {{- end }}
-      {{- if .Values.global.lightstepAccessTokenFile }}
-        - --lightstepAccessTokenFile
-        - {{ "[[ .ProxyConfig.LightstepAccessTokenFile ]]" }}
+      {{- if .Values.global.lightstepAccessToken }}
+        - --lightstepAccessToken
+        - {{ "[[ .ProxyConfig.LightstepAccessToken ]]" }}
       {{- end }}
         - --connectTimeout
         - {{ "[[ formatDuration .ProxyConfig.ConnectTimeout ]]" }}

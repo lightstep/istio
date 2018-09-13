@@ -93,8 +93,8 @@ data:
         - {{ "[[ .ProxyConfig.ZipkinAddress ]]" }}
         - --lightstepAddress
         - {{ "[[ .ProxyConfig.LightstepAddress ]]" }}
-        - --lightstepAccessTokenFile
-        - {{ "[[ .ProxyConfig.LightstepAccessTokenFile ]]" }}
+        - --lightstepAccessToken
+        - {{ "[[ .ProxyConfig.LightstepAccessToken ]]" }}
         - --connectTimeout
         - {{ "[[ formatDuration .ProxyConfig.ConnectTimeout ]]" }}
       {{- if .Values.global.proxy.envoyStatsd.enabled }}

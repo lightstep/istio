@@ -60,8 +60,8 @@ var (
 	discoveryAddress         string
 	discoveryRefreshDelay    time.Duration
 	zipkinAddress            string
-	lightstepAddress            string
-	lightstepAccessTokenFile string
+	lightstepAddress         string
+	lightstepAccessToken     string
 	connectTimeout           time.Duration
 	statsdUDPAddress         string
 	proxyAdminPort           uint16
@@ -150,7 +150,7 @@ var (
 			proxyConfig.DiscoveryRefreshDelay = types.DurationProto(discoveryRefreshDelay)
 			proxyConfig.ZipkinAddress = zipkinAddress
 			proxyConfig.LightstepAddress = lightstepAddress
-			proxyConfig.LightstepAccessTokenFile = lightstepAccessTokenFile
+			proxyConfig.LightstepAccessToken = lightstepAccessToken
 			proxyConfig.ConnectTimeout = types.DurationProto(connectTimeout)
 			proxyConfig.StatsdUdpAddress = statsdUDPAddress
 			proxyConfig.ProxyAdminPort = int32(proxyAdminPort)
@@ -351,7 +351,7 @@ func init() {
 		"Address of the Zipkin service (e.g. zipkin:9411)")
 	proxyCmd.PersistentFlags().StringVar(&lightstepAddress, "lightstepAddress", values.LightstepAddress,
 		"Address of the Lightstep service ")
-	proxyCmd.PersistentFlags().StringVar(&lightstepAccessTokenFile, "lightstepAccessTokenFile", values.LightstepAccessTokenFile,
+	proxyCmd.PersistentFlags().StringVar(&lightstepAccessToken, "lightstepAccessToken", values.LightstepAccessToken,
 		"Access Token for Lightstep service ")
 	proxyCmd.PersistentFlags().DurationVar(&connectTimeout, "connectTimeout",
 		timeDuration(values.ConnectTimeout),
