@@ -48,215 +48,214 @@ number_of_entries: 8
 </section>
 <h2 id="MeshConfig">MeshConfig</h2>
 <section>
-<<<<<<< HEAD
-<p>MeshConfig defines mesh-wide variables shared by all Envoy instances in the
-Istio service mesh.</p>
+    <p>MeshConfig defines mesh-wide variables shared by all Envoy instances in the
+        Istio service mesh.</p>
 
-<p>NOTE: This configuration type should be used for the low-level global
-configuration, such as component addresses and port numbers. It should not
-be used for the features of the mesh that can be scoped by service or by
-namespace. Some of the fields in the mesh config are going to be deprecated
-and replaced with several individual configuration types (for example,
-tracing configuration).</p>
+    <p>NOTE: This configuration type should be used for the low-level global
+        configuration, such as component addresses and port numbers. It should not
+        be used for the features of the mesh that can be scoped by service or by
+        namespace. Some of the fields in the mesh config are going to be deprecated
+        and replaced with several individual configuration types (for example,
+        tracing configuration).</p>
 
-<table class="message-fields">
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr id="MeshConfig-mixer_check_server">
-<td><code>mixerCheckServer</code></td>
-<td><code>string</code></td>
-<td>
-<p>Address of the server that will be used by the proxies for policy
-check calls. By using different names for mixerCheckServer and
-mixerReportServer, it is possible to have one set of mixer servers handle
-policy check calls while another set of mixer servers handle telemetry
-calls.</p>
+    <table class="message-fields">
+        <thead>
+        <tr>
+            <th>Field</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="MeshConfig-mixer_check_server">
+            <td><code>mixerCheckServer</code></td>
+            <td><code>string</code></td>
+            <td>
+                <p>Address of the server that will be used by the proxies for policy
+                    check calls. By using different names for mixerCheckServer and
+                    mixerReportServer, it is possible to have one set of mixer servers handle
+                    policy check calls while another set of mixer servers handle telemetry
+                    calls.</p>
 
-<p>NOTE: Omitting mixerCheckServer while specifying mixerReportServer is
-equivalent to setting disablePolicyChecks to true.</p>
+                <p>NOTE: Omitting mixerCheckServer while specifying mixerReportServer is
+                    equivalent to setting disablePolicyChecks to true.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-mixer_report_server">
-<td><code>mixerReportServer</code></td>
-<td><code>string</code></td>
-<td>
-<p>Address of the server that will be used by the proxies for policy report
-calls.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-mixer_report_server">
+            <td><code>mixerReportServer</code></td>
+            <td><code>string</code></td>
+            <td>
+                <p>Address of the server that will be used by the proxies for policy report
+                    calls.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-disable_policy_checks">
-<td><code>disablePolicyChecks</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Disable policy checks by the mixer service. Default
-is false, i.e. mixer policy check is enabled by default.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-disable_policy_checks">
+            <td><code>disablePolicyChecks</code></td>
+            <td><code>bool</code></td>
+            <td>
+                <p>Disable policy checks by the mixer service. Default
+                    is false, i.e. mixer policy check is enabled by default.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-proxy_listen_port">
-<td><code>proxyListenPort</code></td>
-<td><code>int32</code></td>
-<td>
-<p>Port on which Envoy should listen for incoming connections from
-other services.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-proxy_listen_port">
+            <td><code>proxyListenPort</code></td>
+            <td><code>int32</code></td>
+            <td>
+                <p>Port on which Envoy should listen for incoming connections from
+                    other services.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-proxy_http_port">
-<td><code>proxyHttpPort</code></td>
-<td><code>int32</code></td>
-<td>
-<p>Port on which Envoy should listen for HTTP PROXY requests if set.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-proxy_http_port">
+            <td><code>proxyHttpPort</code></td>
+            <td><code>int32</code></td>
+            <td>
+                <p>Port on which Envoy should listen for HTTP PROXY requests if set.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-connect_timeout">
-<td><code>connectTimeout</code></td>
-<td><code><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#duration">google.protobuf.Duration</a></code></td>
-<td>
-<p>Connection timeout used by Envoy. (MUST BE &gt;=1ms)</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-connect_timeout">
+            <td><code>connectTimeout</code></td>
+            <td><code><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#duration">google.protobuf.Duration</a></code></td>
+            <td>
+                <p>Connection timeout used by Envoy. (MUST BE &gt;=1ms)</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-ingress_class">
-<td><code>ingressClass</code></td>
-<td><code>string</code></td>
-<td>
-<p>Class of ingress resources to be processed by Istio ingress
-controller.  This corresponds to the value of
-&ldquo;kubernetes.io/ingress.class&rdquo; annotation.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-ingress_class">
+            <td><code>ingressClass</code></td>
+            <td><code>string</code></td>
+            <td>
+                <p>Class of ingress resources to be processed by Istio ingress
+                    controller.  This corresponds to the value of
+                    &ldquo;kubernetes.io/ingress.class&rdquo; annotation.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-ingress_service">
-<td><code>ingressService</code></td>
-<td><code>string</code></td>
-<td>
-<p>Name of the kubernetes service used for the istio ingress controller.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-ingress_service">
+            <td><code>ingressService</code></td>
+            <td><code>string</code></td>
+            <td>
+                <p>Name of the kubernetes service used for the istio ingress controller.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-ingress_controller_mode">
-<td><code>ingressControllerMode</code></td>
-<td><code><a href="#MeshConfig-IngressControllerMode">MeshConfig.IngressControllerMode</a></code></td>
-<td>
-<p>Defines whether to use Istio ingress controller for annotated or all ingress resources.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-ingress_controller_mode">
+            <td><code>ingressControllerMode</code></td>
+            <td><code><a href="#MeshConfig-IngressControllerMode">MeshConfig.IngressControllerMode</a></code></td>
+            <td>
+                <p>Defines whether to use Istio ingress controller for annotated or all ingress resources.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-auth_policy" class="deprecated ">
-<td><code>authPolicy</code></td>
-<td><code><a href="#MeshConfig-AuthPolicy">MeshConfig.AuthPolicy</a></code></td>
-<td>
-<p>Authentication policy defines the global switch to control authentication
-for Envoy-to-Envoy communication.
-Use authentication_policy instead.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-auth_policy" class="deprecated ">
+            <td><code>authPolicy</code></td>
+            <td><code><a href="#MeshConfig-AuthPolicy">MeshConfig.AuthPolicy</a></code></td>
+            <td>
+                <p>Authentication policy defines the global switch to control authentication
+                    for Envoy-to-Envoy communication.
+                    Use authentication_policy instead.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-rds_refresh_delay">
-<td><code>rdsRefreshDelay</code></td>
-<td><code><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#duration">google.protobuf.Duration</a></code></td>
-<td>
-<p>Polling interval for RDS (MUST BE &gt;=1ms)</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-rds_refresh_delay">
+            <td><code>rdsRefreshDelay</code></td>
+            <td><code><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#duration">google.protobuf.Duration</a></code></td>
+            <td>
+                <p>Polling interval for RDS (MUST BE &gt;=1ms)</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-enable_tracing">
-<td><code>enableTracing</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Flag to control generation of trace spans and request IDs.
-Requires a trace span collector defined in the proxy configuration.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-enable_tracing">
+            <td><code>enableTracing</code></td>
+            <td><code>bool</code></td>
+            <td>
+                <p>Flag to control generation of trace spans and request IDs.
+                    Requires a trace span collector defined in the proxy configuration.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-access_log_file">
-<td><code>accessLogFile</code></td>
-<td><code>string</code></td>
-<td>
-<p>File address for the proxy access log (e.g. /dev/stdout).
-Empty value disables access logging.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-access_log_file">
+            <td><code>accessLogFile</code></td>
+            <td><code>string</code></td>
+            <td>
+                <p>File address for the proxy access log (e.g. /dev/stdout).
+                    Empty value disables access logging.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-default_config">
-<td><code>defaultConfig</code></td>
-<td><code><a href="#ProxyConfig">ProxyConfig</a></code></td>
-<td>
-<p>Default proxy config used by the proxy injection mechanism operating in the mesh
-(e.g. Kubernetes admission controller)
-In case of Kubernetes, the proxy config is applied once during the injection process,
-and remain constant for the duration of the pod. The rest of the mesh config can be changed
-at runtime and config gets distributed dynamically.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-default_config">
+            <td><code>defaultConfig</code></td>
+            <td><code><a href="#ProxyConfig">ProxyConfig</a></code></td>
+            <td>
+                <p>Default proxy config used by the proxy injection mechanism operating in the mesh
+                    (e.g. Kubernetes admission controller)
+                    In case of Kubernetes, the proxy config is applied once during the injection process,
+                    and remain constant for the duration of the pod. The rest of the mesh config can be changed
+                    at runtime and config gets distributed dynamically.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-mixer_address">
-<td><code>mixerAddress</code></td>
-<td><code>string</code></td>
-<td>
-<p>DEPRECATED. Mixer address. This option will be removed soon. Please
-use mixer<em>check and mixer</em>report.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-mixer_address">
+            <td><code>mixerAddress</code></td>
+            <td><code>string</code></td>
+            <td>
+                <p>DEPRECATED. Mixer address. This option will be removed soon. Please
+                    use mixer<em>check and mixer</em>report.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-outbound_traffic_policy">
-<td><code>outboundTrafficPolicy</code></td>
-<td><code><a href="#MeshConfig-OutboundTrafficPolicy">MeshConfig.OutboundTrafficPolicy</a></code></td>
-<td>
-<p>Set the default behavior of the sidecar for handling outbound traffic from the application.
-While the default mode should work out of the box, if your application uses one or more external services that
-are not known apriori, setting the policy to ALLOW<em>ANY will cause the sidecars to route traffic to the any
-requested destination.
-Users are strongly encouraged to use ServiceEntries to explicitly declare any external dependencies,
-instead of using allow</em>any.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-outbound_traffic_policy">
+            <td><code>outboundTrafficPolicy</code></td>
+            <td><code><a href="#MeshConfig-OutboundTrafficPolicy">MeshConfig.OutboundTrafficPolicy</a></code></td>
+            <td>
+                <p>Set the default behavior of the sidecar for handling outbound traffic from the application.
+                    While the default mode should work out of the box, if your application uses one or more external services that
+                    are not known apriori, setting the policy to ALLOW<em>ANY will cause the sidecars to route traffic to the any
+                        requested destination.
+                        Users are strongly encouraged to use ServiceEntries to explicitly declare any external dependencies,
+                        instead of using allow</em>any.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-enable_client_side_policy_check">
-<td><code>enableClientSidePolicyCheck</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Enables clide side policy checks.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-enable_client_side_policy_check">
+            <td><code>enableClientSidePolicyCheck</code></td>
+            <td><code>bool</code></td>
+            <td>
+                <p>Enables clide side policy checks.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-sds_uds_path">
-<td><code>sdsUdsPath</code></td>
-<td><code>string</code></td>
-<td>
-<p>Unix Domain Socket through which envoy communicates with NodeAgent SDS to get key/cert for mTLS.
-Use secret-mount files instead of SDS if set to empty.</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-sds_uds_path">
+            <td><code>sdsUdsPath</code></td>
+            <td><code>string</code></td>
+            <td>
+                <p>Unix Domain Socket through which envoy communicates with NodeAgent SDS to get key/cert for mTLS.
+                    Use secret-mount files instead of SDS if set to empty.</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-sds_refresh_delay">
-<td><code>sdsRefreshDelay</code></td>
-<td><code><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#duration">google.protobuf.Duration</a></code></td>
-<td>
-<p>Polling interval for SDS (MUST BE &gt;=1ms)</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-sds_refresh_delay">
+            <td><code>sdsRefreshDelay</code></td>
+            <td><code><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#duration">google.protobuf.Duration</a></code></td>
+            <td>
+                <p>Polling interval for SDS (MUST BE &gt;=1ms)</p>
 
-</td>
-</tr>
-<tr id="MeshConfig-galley_address">
-<td><code>galleyAddress</code></td>
-<td><code>string</code></td>
-<td>
-<p>Address of the galley service exposing the Mesh Control Protocol (MCP).</p>
+            </td>
+        </tr>
+        <tr id="MeshConfig-galley_address">
+            <td><code>galleyAddress</code></td>
+            <td><code>string</code></td>
+            <td>
+                <p>Address of the galley service exposing the Mesh Control Protocol (MCP).</p>
 
-</td>
-</tr>
-</tbody>
-</table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </section>
 <h2 id="MeshConfig-AuthPolicy">MeshConfig.AuthPolicy</h2>
 <section>

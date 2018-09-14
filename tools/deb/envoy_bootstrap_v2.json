@@ -2,15 +2,15 @@
   "node": {
     "id": "{{ .nodeID }}",
     "cluster": "{{ .cluster }}",
-{{ if .zone }}
+    {{ if .zone }}
     "locality": {
-        "zone": "{{ .zone }}"
+      "zone": "{{ .zone }}"
     },
-{{ end }}
+    {{ end }}
     "metadata": {
-{{- range $a, $s := .meta }}
-          "{{$a}}": "{{$s}}",
-{{- end}}
+      {{- range $a, $s := .meta }}
+      "{{$a}}": "{{$s}}",
+      {{- end}}
       "istio": "sidecar"
     }
   },
@@ -44,7 +44,7 @@
       {
         "tag_name": "listener_address",
         "regex": "^listener\\.(((?:[_.[:digit:]]*|[_\\[\\]aAbBcCdDeEfF[:digit:]]*))\\.)"
-      },
+      }
     ]
   },
   "admin": {
@@ -90,7 +90,7 @@
               "port_value": "15000",
             }
           }
-        ],
+        ]
       },
       {
         "name": "xds-grpc",
@@ -228,9 +228,9 @@
               }
             ]
           }
-        ],
-      },
-    ],
+        ]
+      }
+    ]
   }
   {{ if and .zipkin (not .lightstep) }}
   ,
@@ -255,7 +255,6 @@
     }
   }
   {{ end }}
-
   {{ if .statsd }}
   ,
   "stats_sinks": [
