@@ -92,6 +92,13 @@ global:
     stats:
       prometheusPort: 15090
 
+    # Configuration for envoy to send trace data to LightStep.
+    # address is the <host>:<port> of the satellite pool
+    # accessToken is required for sending data to the pool
+    lightstep:
+      address: ""
+      accessToken: ""
+
   proxy_init:
     # Base name for the proxy_init container, used to configure iptables.
     image: proxy_init
