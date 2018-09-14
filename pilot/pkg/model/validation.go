@@ -870,6 +870,16 @@ func ValidateProxyConfig(config *meshconfig.ProxyConfig) (errs error) {
 		}
 	}
 
+	if (config.LightstepAddress == "") != (config.LightstepAccessToken == "") {
+		errs = multierror.Append(errs, errors.New("lightstep address and access token must be set (or omitted) together"))
+	}
+
+	if config.LightstepAddress != "" {
+		if err := ValidateProxyAddress(config.LightstepAddress); err != nil {
+			errs = multierror.Append(errs, multierror.Prefix(err, "invalid lightstep address:"))
+		}
+	}
+
 	if err := ValidateConnectTimeout(config.ConnectTimeout); err != nil {
 		errs = multierror.Append(errs, multierror.Prefix(err, "invalid connect timeout:"))
 	}
