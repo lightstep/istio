@@ -12,5 +12,7 @@ proxy_admin_port:         15005
 availability_zone:        "AZ"
 control_plane_auth_policy: MUTUAL_TLS
 stat_name_length:          200
+lightstep_address:         "lightstep-satellite:8080"
+lightstep_access_token:    "abcdefg1234567"
 
 # Sets all relevant options to values different than default

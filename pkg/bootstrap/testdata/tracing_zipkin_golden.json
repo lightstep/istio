@@ -120,6 +120,21 @@
         "http2_protocol_options": { }
       }
       
+      ,
+      {
+        "name": "zipkin",
+        "type": "STRICT_DNS",
+        "connect_timeout": {
+          "seconds": 1
+        },
+        "lb_policy": "ROUND_ROBIN",
+        "hosts": [
+          {
+            "socket_address": {"address": "localhost", "port_value": 6000}
+          }
+        ]
+      }
+      
       
     ],
     "listeners":[
@@ -169,6 +184,16 @@
         ]
       }
     ]
+  }
+  
+  ,
+  "tracing": {
+    "http": {
+      "name": "envoy.zipkin",
+      "config": {
+        "collector_cluster": "zipkin"
+      }
+    }
   }
   
   

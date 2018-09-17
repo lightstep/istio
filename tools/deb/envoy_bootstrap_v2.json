@@ -58,10 +58,10 @@
   },
   "dynamic_resources": {
     "lds_config": {
-        "ads": {}
+      "ads": {}
     },
     "cds_config": {
-        "ads": {}
+      "ads": {}
     },
     "ads_config": {
       "api_type": "GRPC",
@@ -87,7 +87,7 @@
             "socket_address": {
               "protocol": "TCP",
               "address": "127.0.0.1",
-              "port_value": "15000",
+              "port_value": "15000"
             }
           }
         ]
@@ -190,7 +190,7 @@
           "socket_address": {
             "protocol": "TCP",
             "address": "0.0.0.0",
-            "port_value": "15090",
+            "port_value": "15090"
           }
         },
         "filter_chains": [

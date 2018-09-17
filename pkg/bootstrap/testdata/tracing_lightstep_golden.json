@@ -121,6 +121,22 @@
       }
       
       
+      ,
+      {
+        "name": "lightstep",
+        "http2_protocol_options": {},
+        "type": "LOGICAL_DNS",
+        "connect_timeout": {
+          "seconds": 1
+        },
+        "lb_policy": "ROUND_ROBIN",
+        "hosts": [
+          {
+            "socket_address": {"address": "lightstep-satellite", "port_value": 8080}
+          }
+        ]
+      }
+      
     ],
     "listeners":[
       {
@@ -171,6 +187,17 @@
     ]
   }
   
+  
+  ,
+  "tracing": {
+    "http": {
+      "name": "envoy.lightstep",
+      "config": {
+        "collector_cluster": "lightstep",
+        "access_token_file": "/Users/juliangriggs/go/out/darwin_amd64/release/bootstrap/tracing_lightstep/lightstep_access_token.txt"
+      }
+    }
+  }
   
   
 }
