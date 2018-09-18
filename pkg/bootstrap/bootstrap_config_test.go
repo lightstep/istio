@@ -16,6 +16,7 @@ package bootstrap
 import (
 	"io/ioutil"
 	"os"
+	"path"
 	"testing"
 
 	"github.com/gogo/protobuf/proto"
@@ -29,19 +30,33 @@ import (
 // cp $TOP/out/linux_amd64/release/bootstrap/all/envoy-rev0.json pkg/bootstrap/testdata/all_golden.json
 // cp $TOP/out/linux_amd64/release/bootstrap/auth/envoy-rev0.json pkg/bootstrap/testdata/auth_golden.json
 // cp $TOP/out/linux_amd64/release/bootstrap/default/envoy-rev0.json pkg/bootstrap/testdata/default_golden.json
+// cp $TOP/out/linux_amd64/release/bootstrap/tracing_lightstep/envoy-rev0.json pkg/bootstrap/testdata/tracing_lightstep_golden.json
+// cp $TOP/out/linux_amd64/release/bootstrap/tracing_zipkin/envoy-rev0.json pkg/bootstrap/testdata/tracing_zipkin_golden.json
 func TestGolden(t *testing.T) {
 	cases := []struct {
-		base string
+		base                       string
+		expectLightstepAccessToken bool
 	}{
 		{
-			"auth",
+			base: "auth",
+			expectLightstepAccessToken: false,
 		},
 		{
-			"default",
+			base: "default",
+			expectLightstepAccessToken: false,
+		},
+		{
+			base: "tracing_lightstep",
+			expectLightstepAccessToken: true,
+		},
+		{
+			base: "tracing_zipkin",
+			expectLightstepAccessToken: false,
 		},
 		{
 			// Specify zipkin/statsd address, similar with the default config in v1 tests
-			"all",
+			base: "all",
+			expectLightstepAccessToken: true,
 		},
 	}
 
@@ -72,6 +87,22 @@ func TestGolden(t *testing.T) {
 			}
 			if string(data) != string(golden) {
 				t.Error("Generated incorrect config, want:\n" + string(golden) + "\ngot:\n" + string(data))
+			}
+
+			// Check if the LightStep access token file exists
+			_, err = os.Stat(lightstepAccessTokenFile(path.Dir(fn)))
+			if c.expectLightstepAccessToken {
+				if os.IsNotExist(err) {
+					t.Error("expected to find a LightStep access token file but none found")
+				} else if err != nil {
+					t.Error("error running Stat on file: ", err)
+				}
+			} else {
+				if err == nil {
+					t.Error("found a LightStep access token file but none was expected")
+				} else if !os.IsNotExist(err) {
+					t.Error("error running Stat on file: ", err)
+				}
 			}
 		})
 	}

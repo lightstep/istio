@@ -89,6 +89,16 @@ data:
       # Zipkin trace collector
       zipkinAddress: zipkin.{{ .Release.Namespace }}:9411
 
+    {{- if .Values.global.proxy.lightstep.address }}
+      # Lightstep trace collector
+      lightstepAddress: {{ .Values.global.proxy.lightstep.address }}
+    {{- end }}
+
+    {{- if .Values.global.proxy.lightstep.accessToken }}
+      # Lightstep Access Token
+      lightstepAccessToken: {{ .Values.global.proxy.lightstep.accessToken }}
+    {{- end }}
+
     {{- if .Values.global.proxy.envoyStatsd.enabled }}
       #
       # Statsd metrics collector converts statsd metrics into Prometheus metrics.

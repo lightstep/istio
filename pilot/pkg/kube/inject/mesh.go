@@ -105,6 +105,10 @@ containers:
   - [[ formatDuration .ProxyConfig.DiscoveryRefreshDelay ]]
   - --zipkinAddress
   - [[ .ProxyConfig.ZipkinAddress ]]
+  - --lightstepAddress
+  - [[ .ProxyConfig.LightstepAddress ]]
+  - --lightstepAccessToken
+  - [[ .ProxyConfig.LightstepAccessToken ]]
   - --connectTimeout
   - [[ formatDuration .ProxyConfig.ConnectTimeout ]]
   - --statsdUdpAddress

@@ -34,8 +34,9 @@ import (
 // Generate the envoy v2 bootstrap configuration, using template.
 const (
 	// EpochFileTemplate is a template for the root config JSON
-	EpochFileTemplate = "envoy-rev%d.json"
-	DefaultCfgDir     = "/var/lib/istio/envoy/envoy_bootstrap_tmpl.json"
+	EpochFileTemplate        = "envoy-rev%d.json"
+	DefaultCfgDir            = "/var/lib/istio/envoy/envoy_bootstrap_tmpl.json"
+	lightstepAccessTokenBase = "lightstep_access_token.txt"
 )
 
 var (
@@ -45,6 +46,10 @@ var (
 
 func configFile(config string, epoch int) string {
 	return path.Join(config, fmt.Sprintf(EpochFileTemplate, epoch))
+}
+
+func lightstepAccessTokenFile(config string) string {
+	return path.Join(config, lightstepAccessTokenBase)
 }
 
 // convertDuration converts to golang duration and logs errors
@@ -210,6 +215,25 @@ func WriteBootstrap(config *meshconfig.ProxyConfig, node string, epoch int, pilo
 			return "", err
 		}
 		StoreHostPort(h, p, "zipkin", opts)
+	}
+	if config.LightstepAddress != "" {
+		h, p, err = GetHostPort("Lightstep", config.LightstepAddress)
+		if err != nil {
+			return "", err
+		}
+		StoreHostPort(h, p, "lightstep", opts)
+	}
+	if config.LightstepAccessToken != "" {
+		lightstepAccessTokenPath := lightstepAccessTokenFile(config.ConfigPath)
+		lsConfigOut, err := os.Create(lightstepAccessTokenPath)
+		if err != nil {
+			return "", err
+		}
+		_, err = lsConfigOut.WriteString(config.LightstepAccessToken)
+		if err != nil {
+			return "", err
+		}
+		opts["lightstepToken"] = lightstepAccessTokenPath
 	}
 
 	if config.StatsdUdpAddress != "" {

@@ -3,10 +3,25 @@ clusters:
 - cluster:
     server: http://localhost:8080
   name: istio
+- cluster:
+    certificate-authority: /Users/juliangriggs/.minikube/ca.crt
+    server: https://192.168.99.100:8443
+  name: minikube
 contexts:
 - context:
     cluster: istio
     user: ""
   name: istio
-current-context: istio
+- context:
+    cluster: minikube
+    namespace: default
+    user: minikube
+  name: minikube
+current-context: minikube
 kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /Users/juliangriggs/.minikube/client.crt
+    client-key: /Users/juliangriggs/.minikube/client.key

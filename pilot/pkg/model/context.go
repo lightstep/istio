@@ -227,6 +227,8 @@ func DefaultProxyConfig() meshconfig.ProxyConfig {
 		CustomConfigFile:       "",
 		Concurrency:            0,
 		StatNameLength:         189,
+		LightstepAddress:       "",
+		LightstepAccessToken:   "",
 	}
 }
 
@@ -279,6 +281,7 @@ func ApplyMeshConfigDefaults(yaml string) (*meshconfig.MeshConfig, error) {
 	if err := ValidateMeshConfig(&out); err != nil {
 		return nil, err
 	}
+
 	return &out, nil
 }
 
