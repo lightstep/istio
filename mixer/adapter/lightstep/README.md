@@ -3,7 +3,7 @@ Follow build instructions here: https://github.com/istio/istio/wiki/Mixer-Out-Of
 
 ## Tab 1 
 ```bash
-go run cmd/main.go 38355 1 {PUBLIC_LIGHTSTEP_ACCESS_TOKEN} collector-grpc.lightstep.com:8080
+go run cmd/main.go -serverAddress=38355 -accessToken={PUBLIC_LIGHTSTEP_ACCESS_TOKEN} -socketAddress=collector-grpc.lightstep.com:8080
 ```
 
 ## Tab 2 

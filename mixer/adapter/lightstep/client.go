@@ -27,21 +27,20 @@ type ClientOptions struct {
 	// AccessToken is the access token used for explicit trace collection requests.
 	AccessToken string
 
-	// HostPort is the address of the remote service that will receive reports.
-	HostPort string
+	// SocketAddress is the address of the remote service that will receive reports.
+	SocketAddress string
 }
 
 func newGRPCSatelliteClient(options ClientOptions) (*grpcSatelliteClient, error) {
 	rec := &grpcSatelliteClient{options: options}
 
-	conn, err := grpc.Dial(options.HostPort, grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(options.SocketAddress, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		return nil, fmt.Errorf("could not connect to satellite: %v", err)
 	}
 	rec.grpcClient = collectorpb.NewCollectorServiceClient(conn)
 	return rec, nil
 }
-
 
 // HandleTraceSpan records TraceSpan entries
 func (c *grpcSatelliteClient) HandleTraceSpan(
